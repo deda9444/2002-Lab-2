@@ -5,10 +5,10 @@ clear;
 filesOne = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\VelocityVoltageData\PitotProbeToPressureTransducer');
 filesTwo = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\VelocityVoltageData\VenturiTubeToPressureTransducer');
 
-pitotFile = strcat(filesOne(1).folder,'\',filesOne(1).name);
-venturiFile = strcat(filesTwo(1).folder,'\',filesTwo(1).name);
+pitotFile = strcat(filesOne(11).folder,'\',filesOne(11).name);
+venturiFile = strcat(filesTwo(11).folder,'\',filesTwo(11).name); %S303_2
 
-pitotVelocity = load(pitotFile);
-venturiVelocity = load(venturiFile);
+pitotVelocityData = load(pitotFile);
+venturiVelocityData = load(venturiFile);
 
 
