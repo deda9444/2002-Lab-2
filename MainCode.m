@@ -30,13 +30,15 @@ water_Data = readtable(water_Data_File);
 
 areaRatio = 1 / 9.5;
 R = 8.3145; %J/molK
+rho_water = 997; %kg/m^3
+g = 9.81; %m/s^2
 
 pitotVelocity = @(deltaP,Tatm,Patm) sqrt(2 .* deltaP .* ((R .* Tatm) ./ Patm));
 venturiVelocity = @(deltaP,Tatm,Patm) sqrt((2 .* deltaP .* R .* Tatm) ./ (Patm .* (1 - areaRatio^2)));
 
-pitotWater = zeros([500,20]);
+pitotWater = zeros([1,20]);
 pitotTransducer = zeros([500,20]);
-venturiWater = zeros([500,20]);
+venturiWater = zeros([1,20]);
 venturiTransducer = zeros([500,20]);
 
 for i=1:500
@@ -57,13 +59,72 @@ for i=1:500
     
 end
 
-    %pitotWater = pitotVelocity(water,s303,s303)
+    %pitotWater = pitotVelocity(waterPressure,s303,s303)
+    
+    %Row: 22 - Venturi to Manometer 0.5 2.5 4.5 6.5 8.5
+    %Row: 6 - Venturi to Manometer 1 3 5 7 9
+    %Row: 25 - Venturi to Manometer 303-6 1.5 3.5 5.5 7.5 9.5
+    %Row: 3 - Venturi to Manometer 2 4 6 8 10
+    
+    %Row: 26 - Pitot to Manometer 0.5 2.5 4.5 6.5 8.5    
+    %Row: 1 - Pitot to Manometer 1 3 5 7 9    
+    %Row: 16 - Pitot to Manometer 1.5 3.5 5.5 7.5 9.5
+    %Row: 4 - Pitot to Manometer 2 4 6 8 10
+    
+waterPressureVenturi = zeros([1,20]);
+waterPressurePitot = zeros([1,20]);
 
-    %S303_1 Venturi equation water
-    %s303_2 Pitot equation water
-    %S303_3 Venturi equation water
-    %s303_4 Pitot equation water
-    %S303_5 Venturi equation water
-    %s303_6 Pitot equation water
-    %S303_7 Venturi equation water
-    %s303_8 Pitot equation water
+iterate = 1;
+    
+for j=5:2:13
+    
+    waterPressureVenturi(1,iterate) = rho_water * g * water_Data{22,j}; %0.5 Volt start
+    waterPressureVenturi(1,iterate+1) = rho_water * g * water_Data{6,j}; %1 Volt start
+    waterPressureVenturi(1,iterate+2) = rho_water * g * water_Data{25,j}; %1.5 Volt start
+    waterPressureVenturi(1,iterate+3) = rho_water * g * water_Data{3,j}; %2 Volt start
+    
+    waterPressurePitot(1,iterate) = rho_water * g * water_Data{26,j}; %0.5 Volt start
+    waterPressurePitot(1,iterate+1) = rho_water * g * water_Data{1,j}; %1 Volt start
+    waterPressurePitot(1,iterate+2) = rho_water * g * water_Data{16,j}; %1.5 Volt start
+    waterPressurePitot(1,iterate+3) = rho_water * g * water_Data{4,j}; %2 Volt start
+    
+    iterate = iterate + 4;
+    
+end
+
+%Using s303_7
+atmosphericPressure = mean(s303_7_Data(:,1));
+atmosphericTemperature = mean(s303_7_Data(:,2));
+
+for i = 1:20
+    
+    pitotWater(i) = pitotVelocity(waterPressurePitot(i),atmosphericTemperature,atmosphericPressure);
+    venturiWater(i) = venturiVelocity(waterPressureVenturi(i),atmosphericTemperature,atmosphericPressure);
+    
+end
+
+%% Errororor
+
+deltaRoomTemp = 0.25; %Degrees celsius
+deltaManometer = 0.1; %Inches
+deltaTransducer = 1.5; %Percent
+
+deltaAtmosphericPressure = 0.0005; %Based off of the data
+
+%deltaAirspeed = sqrt((2 * deltaP * R * Tatm) / (Patm * (1 - areaRatio^2)));
+%deltaAirspeed = sqrt((2 * 0.00005 * R * 0.00005) / (0.5 * (1 - areaRatio^2)));
+
+partialDifferentialPressurePitot = 
+partialRoomTempPitot = 
+partialAtmosphericPressurePitot = 
+
+partialDifferentialPressureVenturi = 
+partialRoomTempVenturi = 
+partialAtmosphericPressureVenturi = 
+
+deltaAirspeedPitotManometer = sqrt((something*something)+(something*something)+(something*something));
+deltaAirspeedPitotTransducer = sqrt((something*something)+(something*something)+(something*something));
+
+deltaAirspeedVenturiManometer = sqrt((something*something)+(something*something)+(something*something));
+deltaAirspeedVenturiTransducer = sqrt((something*something)+(something*something)+(something*something));
+
