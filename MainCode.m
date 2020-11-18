@@ -58,8 +58,6 @@ for i=1:500
     end
     
 end
-
-    %pitotWater = pitotVelocity(waterPressure,s303,s303)
     
     %Row: 22 - Venturi to Manometer 0.5 2.5 4.5 6.5 8.5
     %Row: 6 - Venturi to Manometer 1 3 5 7 9
@@ -106,25 +104,97 @@ end
 %% Errororor
 
 deltaRoomTemp = 0.25; %Degrees celsius
-deltaManometer = 0.1; %Inches
-deltaTransducer = 1.5; %Percent
+deltaManometer = 0.1; %Inches - needs to be converted
+deltaTransducer = 1.5; %Percent - needs to be converted
 
 deltaAtmosphericPressure = 0.0005; %Based off of the data
 
-%deltaAirspeed = sqrt((2 * deltaP * R * Tatm) / (Patm * (1 - areaRatio^2)));
-%deltaAirspeed = sqrt((2 * 0.00005 * R * 0.00005) / (0.5 * (1 - areaRatio^2)));
+partialDifferentialPressurePitot = @(x) sqrt((x * (R + atmosphericTemperature)) / atmosphericPressure) / (sqrt(2) * x);
+partialRoomTempPitot = @(x) x / (sqrt(2) * atmosphericPressure * sqrt((x * (R + atmosphericTemperature)) / atmosphericPressure));
+partialAtmosphericPressurePitot = @(x) - (x * (R + atmosphericTemperature)) / (sqrt(2) * atmosphericPressure^2 * sqrt((x * (R + atmosphericTemperature))/atmosphericPressure));
 
-partialDifferentialPressurePitot = 
-partialRoomTempPitot = 
-partialAtmosphericPressurePitot = 
+partialDifferentialPressureVenturi = @(x) (R * atmosphericTemperature) / (sqrt(2) * (1 - areaRatio^2) * atmosphericPressure * sqrt((R * atmosphericPressure * x)/((1-areaRatio^2)*atmosphericPressure)));
+partialRoomTempVenturi = @(x) (R * x) / (sqrt(2) * (1 - areaRatio^2) * atmosphericPressure * sqrt((R * atmosphericTemperature * x)/((1-areaRatio^2)*atmosphericPressure)));
+partialAtmosphericPressureVenturi = @(x) (R * x * atmosphericTemperature) / (sqrt(2) * (1 - areaRatio^2) * atmosphericPressure^2 * sqrt((R * atmosphericTemperature * x)/((1-areaRatio^2)*atmosphericPressure)));
 
-partialDifferentialPressureVenturi = 
-partialRoomTempVenturi = 
-partialAtmosphericPressureVenturi = 
+%%
 
-deltaAirspeedPitotManometer = sqrt((something*something)+(something*something)+(something*something));
-deltaAirspeedPitotTransducer = sqrt((something*something)+(something*something)+(something*something));
+deltaAirspeedPitotTransducer = zeros([500,20]);
+deltaAirspeedVenturiTransducer = zeros([500,20]);
 
-deltaAirspeedVenturiManometer = sqrt((something*something)+(something*something)+(something*something));
-deltaAirspeedVenturiTransducer = sqrt((something*something)+(something*something)+(something*something));
+for i=1:500
+    
+    for j=0:4
 
+        deltaAirspeedPitotTransducer(i,s303_7_Data((i+j*500),7)*2) = sqrt(...
+            (partialDifferentialPressurePitot(s303_7_Data((i+j*500),3))*deltaTransducer)+...
+            (partialAtmosphericPressurePitot(s303_7_Data((i+j*500),3))*deltaAtmosphericPressure)+...
+            (partialRoomTempPitot(s303_1_Data((i+j*500),3))*deltaRoomTemp));
+        deltaAirspeedPitotTransducer(i,s303_1_Data((i+j*500),7)*2) = sqrt(...
+            (partialDifferentialPressurePitot(s303_1_Data((i+j*500),3))*deltaTransducer)+...
+            (partialAtmosphericPressurePitot(s303_1_Data((i+j*500),3))*deltaAtmosphericPressure)+...
+            (partialRoomTempPitot(s303_1_Data((i+j*500),3))*deltaRoomTemp));
+        deltaAirspeedPitotTransducer(i,s303_5_Data((i+j*500),7)*2) = sqrt(...
+            (partialDifferentialPressurePitot(s303_5_Data((i+j*500),3))*deltaTransducer)+...
+            (partialAtmosphericPressurePitot(s303_5_Data((i+j*500),3))*deltaAtmosphericPressure)+...
+            (partialRoomTempPitot(s303_5_Data((i+j*500),3))*deltaRoomTemp));
+        deltaAirspeedPitotTransducer(i,s303_3_Data((i+j*500),7)*2) = sqrt(...
+            (partialDifferentialPressurePitot(s303_3_Data((i+j*500),3))*deltaTransducer)+...
+            (partialAtmosphericPressurePitot(s303_3_Data((i+j*500),3))*deltaAtmosphericPressure)+...
+            (partialRoomTempPitot(s303_3_Data((i+j*500),3))*deltaRoomTemp));
+        
+        deltaAirspeedVenturiTransducer(i,s303_8_Data((i+j*500),7)*2) = sqrt(...
+            (partialDifferentialPressureVenturi(s303_8_Data((i+j*500),3))*deltaTransducer)+...
+            (partialAtmosphericPressureVenturi(s303_8_Data((i+j*500),3))*deltaAtmosphericPressure)+...
+            (partialRoomTempVenturi(s303_8_Data((i+j*500),3))*deltaRoomTemp));
+        deltaAirspeedVenturiTransducer(i,s303_2_Data((i+j*500),7)*2) = sqrt(...
+            (partialDifferentialPressureVenturi(s303_2_Data((i+j*500),3))*deltaTransducer)+...
+            (partialAtmosphericPressureVenturi(s303_2_Data((i+j*500),3))*deltaAtmosphericPressure)+...
+            (partialRoomTempVenturi(s303_2_Data((i+j*500),3))*deltaRoomTemp));
+        deltaAirspeedVenturiTransducer(i,s303_6_Data((i+j*500),7)*2) = sqrt(...
+            (partialDifferentialPressureVenturi(s303_6_Data((i+j*500),3))*deltaTransducer)+...
+            (partialAtmosphericPressureVenturi(s303_6_Data((i+j*500),3))*deltaAtmosphericPressure)+...
+            (partialRoomTempVenturi(s303_6_Data((i+j*500),3))*deltaRoomTemp));
+        deltaAirspeedVenturiTransducer(i,s303_4_Data((i+j*500),7)*2) = sqrt(...
+            (partialDifferentialPressureVenturi(s303_4_Data((i+j*500),3))*deltaTransducer)+...
+            (partialAtmosphericPressureVenturi(s303_4_Data((i+j*500),3))*deltaAtmosphericPressure)+...
+            (partialRoomTempVenturi(s303_4_Data((i+j*500),3))*deltaRoomTemp));
+
+    end
+    
+end
+
+%%
+
+deltaAirspeedPitotManometer = zeros([1,20]);
+deltaAirspeedVenturiManometer = zeros([1,20]);
+
+for i = 1:20
+    deltaAirspeedPitotManometer(i) = sqrt(...
+        (partialDifferentialPressurePitot(waterPressurePitot(i))*deltaTransducer)+...
+        (partialAtmosphericPressurePitot(waterPressurePitot(i))*deltaAtmosphericPressure)+...
+        (partialRoomTempPitot(waterPressurePitot(i))*deltaRoomTemp));
+    deltaAirspeedVenturiManometer(i) = sqrt(...
+        (partialDifferentialPressureVenturi(waterPressurePitot(i))*deltaTransducer)+...
+        (partialAtmosphericPressureVenturi(waterPressurePitot(i))*deltaAtmosphericPressure)+...
+        (partialRoomTempVenturi(waterPressurePitot(i))*deltaRoomTemp));
+end
+
+%%
+
+voltagesManometer = (0.5:0.5:10);
+scatter(voltagesManometer,pitotWater)
+title('pitotWater');
+figure;
+scatter(voltagesManometer,venturiWater)
+title('venturiWater');
+
+%%
+
+voltagesTransducer = ones(2500,1);
+
+for i = 1:2500
+    
+    
+
+end
