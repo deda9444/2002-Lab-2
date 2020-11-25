@@ -104,8 +104,8 @@ end
 %% Errororor
 
 deltaRoomTemp = 0.25; %Degrees celsius
-deltaManometer = 0.1; %Inches - needs to be converted
-deltaTransducer = 1.5; %Percent - needs to be converted
+deltaManometer = 0.1; %Inches - needs to be converted ---------------------
+deltaTransducer = 1.5; %Percent - needs to be converted -------------------
 
 deltaAtmosphericPressure = 0.0005; %Based off of the data
 
@@ -191,10 +191,34 @@ title('venturiWater');
 
 %%
 
-voltagesTransducer = ones(2500,1);
+transducerGraphingData = zeros(10000,3);
+%Column 1 is voltages
+%Column 2 is pitot
+%Column 3 is venturi
 
-for i = 1:2500
+indexCounter = 1;
+
+for i = 1:20
     
-    
+    for j = 1:500
+        
+        transducerGraphingData(indexCounter,1) = i / 2;
+        transducerGraphingData(indexCounter,2) = pitotTransducer(j,i);
+        transducerGraphingData(indexCounter,3) = venturiTransducer(j,i);
+        indexCounter = indexCounter + 1;
+        
+    end
 
 end
+
+%% Graphing Pressure Transducer Data
+
+figure
+scatter(transducerGraphingData(:,1),transducerGraphingData(:,2))
+title('pitotTransducer');
+figure;
+scatter(transducerGraphingData(:,1),transducerGraphingData(:,3))
+title('venturiTransducer');
+
+%% Part 6
+
