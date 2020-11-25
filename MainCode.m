@@ -222,3 +222,101 @@ title('venturiTransducer');
 
 %% Part 6
 
+boundaryfilesOne = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\BoundaryLayerData\Port 1');
+boundaryfilesTwo = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\BoundaryLayerData\Port 2');
+boundaryfilesThree = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\BoundaryLayerData\Port 3');
+boundaryfilesFour = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\BoundaryLayerData\Port 4');
+boundaryfilesFive = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\BoundaryLayerData\Port 5');
+boundaryfilesSix = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\BoundaryLayerData\Port 6');
+boundaryfilesSeven = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\BoundaryLayerData\Port 7');
+boundaryfilesEight = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\BoundaryLayerData\Port 8');
+boundaryfilesNine = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\BoundaryLayerData\Port 9');
+boundaryfilesTen = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\BoundaryLayerData\Port 10');
+boundaryfilesEleven = dir('Aero Lab Windtunnel Calibration\Aero Lab 1 - 2019 Group Data\BoundaryLayerData\Port 11');
+
+port_1_File = strcat(boundaryfilesOne(4).folder,'\',boundaryfilesOne(4).name);
+port_2_File = strcat(boundaryfilesTwo(3).folder,'\',boundaryfilesTwo(3).name);
+port_3_File = strcat(boundaryfilesThree(3).folder,'\',boundaryfilesThree(3).name);
+port_4_File = strcat(boundaryfilesFour(3).folder,'\',boundaryfilesFour(3).name);
+port_5_File = strcat(boundaryfilesFive(3).folder,'\',boundaryfilesFive(3).name);
+port_6_File = strcat(boundaryfilesSix(3).folder,'\',boundaryfilesSix(3).name);
+port_7_File = strcat(boundaryfilesSeven(3).folder,'\',boundaryfilesSeven(3).name);
+port_8_File = strcat(boundaryfilesEight(3).folder,'\',boundaryfilesEight(3).name);
+port_9_File = strcat(boundaryfilesNine(3).folder,'\',boundaryfilesNine(3).name);
+port_10_File = strcat(boundaryfilesTen(3).folder,'\',boundaryfilesTen(3).name);
+port_11_File = strcat(boundaryfilesEleven(3).folder,'\',boundaryfilesEleven(3).name);
+
+port_1_Data = load(port_1_File);
+port_2_Data = load(port_2_File);
+port_3_Data = load(port_3_File);
+port_4_Data = load(port_4_File);
+port_5_Data = load(port_5_File);
+port_6_Data = load(port_6_File);
+port_7_Data = load(port_7_File);
+port_8_Data = load(port_8_File);
+port_9_Data = load(port_9_File);
+port_10_Data = load(port_10_File);
+port_11_Data = load(port_11_File);
+
+boundaryVelocity1 = zeros(6000,1);
+boundaryVelocity2 = zeros(6000,1);
+boundaryVelocity3 = zeros(6000,1);
+boundaryVelocity4 = zeros(6000,1);
+boundaryVelocity5 = zeros(6000,1);
+boundaryVelocity6 = zeros(6000,1);
+boundaryVelocity7 = zeros(6000,1);
+boundaryVelocity8 = zeros(6000,1);
+boundaryVelocity9 = zeros(6000,1);
+boundaryVelocity10 = zeros(6000,1);
+boundaryVelocity11 = zeros(6000,1);
+
+for i = 1:6000 %Yeag
+    
+    %deltaP,Tatm,Patm
+    boundaryVelocity1(i) = pitotVelocity(port_1_Data(i,4),port_1_Data(i,2),port_1_Data(i,1));
+    boundaryVelocity2(i) = pitotVelocity(port_2_Data(i,4),port_2_Data(i,2),port_2_Data(i,1));
+    boundaryVelocity3(i) = pitotVelocity(port_3_Data(i,4),port_3_Data(i,2),port_3_Data(i,1));
+    boundaryVelocity4(i) = pitotVelocity(port_4_Data(i,4),port_4_Data(i,2),port_4_Data(i,1));
+    boundaryVelocity5(i) = pitotVelocity(port_5_Data(i,4),port_5_Data(i,2),port_5_Data(i,1));
+    boundaryVelocity6(i) = pitotVelocity(port_6_Data(i,4),port_6_Data(i,2),port_6_Data(i,1));
+    boundaryVelocity7(i) = pitotVelocity(port_7_Data(i,4),port_7_Data(i,2),port_7_Data(i,1));
+    boundaryVelocity8(i) = pitotVelocity(port_8_Data(i,4),port_8_Data(i,2),port_8_Data(i,1));
+    boundaryVelocity9(i) = pitotVelocity(port_9_Data(i,4),port_9_Data(i,2),port_9_Data(i,1));
+    boundaryVelocity10(i) = pitotVelocity(port_10_Data(i,4),port_10_Data(i,2),port_10_Data(i,1));
+    boundaryVelocity11(i) = pitotVelocity(port_11_Data(i,4),port_11_Data(i,2),port_11_Data(i,1));
+    
+end
+
+figure
+scatter(port_1_Data(:,6),boundaryVelocity1);
+title('Velocity at Port vs Probe Height');
+xlabel('Probe Height');
+ylabel('Velocity at Port Location');
+
+hold on
+
+scatter(port_2_Data(:,6),boundaryVelocity2);
+scatter(port_3_Data(:,6),boundaryVelocity3);
+scatter(port_4_Data(:,6),boundaryVelocity4);
+scatter(port_5_Data(:,6),boundaryVelocity5);
+scatter(port_6_Data(:,6),boundaryVelocity6);
+scatter(port_7_Data(:,6),boundaryVelocity7);
+scatter(port_8_Data(:,6),boundaryVelocity8);
+scatter(port_9_Data(:,6),boundaryVelocity9);
+scatter(port_10_Data(:,6),boundaryVelocity10);
+scatter(port_11_Data(:,6),boundaryVelocity11);
+
+hold off
+
+boundaryVelocity1 = 0.95 * mean(boundaryVelocity1(5501:end));
+boundaryVelocity2 = 0.95 * mean(boundaryVelocity2(5501:end));
+boundaryVelocity3 = 0.95 * mean(boundaryVelocity3(5501:end));
+boundaryVelocity4 = 0.95 * mean(boundaryVelocity4(5501:end));
+boundaryVelocity5 = 0.95 * mean(boundaryVelocity5(5501:end));
+boundaryVelocity6 = 0.95 * mean(boundaryVelocity6(5501:end));
+boundaryVelocity7 = 0.95 * mean(boundaryVelocity7(5501:end));
+boundaryVelocity8 = 0.95 * mean(boundaryVelocity8(5501:end));
+boundaryVelocity9 = 0.95 * mean(boundaryVelocity9(5501:end));
+boundaryVelocity10 = 0.95 * mean(boundaryVelocity10(5501:end));
+boundaryVelocity11 = 0.95 * mean(boundaryVelocity11(5501:end));
+
