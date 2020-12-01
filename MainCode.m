@@ -308,15 +308,120 @@ scatter(port_11_Data(:,6),boundaryVelocity11);
 
 hold off
 
-boundaryVelocity1 = 0.95 * mean(boundaryVelocity1(5501:end));
-boundaryVelocity2 = 0.95 * mean(boundaryVelocity2(5501:end));
-boundaryVelocity3 = 0.95 * mean(boundaryVelocity3(5501:end));
-boundaryVelocity4 = 0.95 * mean(boundaryVelocity4(5501:end));
-boundaryVelocity5 = 0.95 * mean(boundaryVelocity5(5501:end));
-boundaryVelocity6 = 0.95 * mean(boundaryVelocity6(5501:end));
-boundaryVelocity7 = 0.95 * mean(boundaryVelocity7(5501:end));
-boundaryVelocity8 = 0.95 * mean(boundaryVelocity8(5501:end));
-boundaryVelocity9 = 0.95 * mean(boundaryVelocity9(5501:end));
-boundaryVelocity10 = 0.95 * mean(boundaryVelocity10(5501:end));
-boundaryVelocity11 = 0.95 * mean(boundaryVelocity11(5501:end));
+%--------------------------------------------------------------------------
+freestreamVelocity1 = 0.95 * mean(boundaryVelocity1(5501:end));
+freestreamVelocity2 = 0.95 * mean(boundaryVelocity2(5501:end));
+freestreamVelocity3 = 0.95 * mean(boundaryVelocity3(5501:end));
+freestreamVelocity4 = 0.95 * mean(boundaryVelocity4(5501:end));
+freestreamVelocity5 = 0.95 * mean(boundaryVelocity5(5501:end));
+freestreamVelocity6 = 0.95 * mean(boundaryVelocity6(5501:end));
+freestreamVelocity7 = 0.95 * mean(boundaryVelocity7(5501:end));
+freestreamVelocity8 = 0.95 * mean(boundaryVelocity8(5501:end));
+freestreamVelocity9 = 0.95 * mean(boundaryVelocity9(5501:end));
+freestreamVelocity10 = 0.95 * mean(boundaryVelocity10(5501:end));
+freestreamVelocity11 = 0.95 * mean(boundaryVelocity11(5501:end));
+%--------------------------------------------------------------------------
 
+counter1 = 1;
+counter2 = 1;
+counter3 = 1;
+counter4 = 1;
+counter5 = 1;
+counter6 = 1;
+counter7 = 1;
+counter8 = 1;
+counter9 = 1;
+counter10 = 1;
+counter11 = 1;
+
+port1Positions = 0;
+port2Positions = 0;
+port3Positions = 0;
+port4Positions = 0;
+port5Positions = 0;
+port6Positions = 0;
+port7Positions = 0;
+port8Positions = 0;
+port9Positions = 0;
+port10Positions = 0;
+port11Positions = 0;
+
+for i = 1:length(boundaryVelocity1)
+     
+    if(abs(boundaryVelocity1(i) - freestreamVelocity1) <= 0.1)        
+         port1Positions(counter1) = port_1_Data(i,6);  
+         counter1 = counter1 + 1;
+    end
+    
+    if(abs(boundaryVelocity2(i) - freestreamVelocity2) <= 0.1)        
+         port2Positions(counter2) = port_2_Data(i,6);
+         counter2 = counter2 + 1;
+    end
+    
+    if(abs(boundaryVelocity3(i) - freestreamVelocity3) <= 0.1)        
+         port3Positions(counter3) = port_3_Data(i,6);
+         counter3 = counter3 + 1;
+    end
+    
+    if(abs(boundaryVelocity4(i) - freestreamVelocity4) <= 0.1)        
+         port4Positions(counter4) = port_4_Data(i,6);
+         counter4 = counter4 + 1;
+    end
+    
+    if(abs(boundaryVelocity5(i) - freestreamVelocity5) <= 0.1)        
+         port5Positions(counter5) = port_5_Data(i,6);
+         counter5 = counter5 + 1;
+    end
+    
+    if(abs(boundaryVelocity6(i) - freestreamVelocity6) <= 0.1)        
+         port6Positions(counter6) = port_6_Data(i,6);
+         counter6 = counter6 + 1;
+    end
+    
+    if(abs(boundaryVelocity7(i) - freestreamVelocity7) <= 0.1)        
+         port7Positions(counter7) = port_7_Data(i,6);
+         counter7 = counter7 + 1;
+    end
+    
+    if(abs(boundaryVelocity8(i) - freestreamVelocity8) <= 0.1)        
+         port8Positions(counter8) = port_8_Data(i,6);
+         counter8 = counter8 + 1;
+    end
+    
+    if(abs(boundaryVelocity9(i) - freestreamVelocity9) <= 0.1)        
+         port9Positions(counter9) = port_9_Data(i,6);
+         counter9 = counter9 + 1;
+    end
+    
+    if(abs(boundaryVelocity10(i) - freestreamVelocity10) <= 0.1)        
+         port10Positions(counter10) = port_10_Data(i,6); 
+         counter10 = counter10 + 1;
+    end
+    
+    if(abs(boundaryVelocity11(i) - freestreamVelocity11) <= 0.1)        
+         port11Positions(counter11) = port_11_Data(i,6);
+         counter11 = counter11 + 1;
+    end
+     
+end
+
+portEdge1 = mean(port1Positions);
+portEdge2 = mean(port2Positions);
+portEdge3 = mean(port3Positions);
+portEdge4 = mean(port4Positions);
+portEdge5 = mean(port5Positions);
+portEdge6 = mean(port6Positions);
+portEdge7 = mean(port7Positions);
+portEdge8 = mean(port8Positions);
+portEdge9 = mean(port9Positions);
+portEdge10 = mean(port10Positions);
+portEdge11 = mean(port11Positions);
+
+portArray = [1,2,3,4,5,6,7,8,9,10,11];
+portEdges = [portEdge1,portEdge2,portEdge3,portEdge4,portEdge5,portEdge6,portEdge7,portEdge8,portEdge9,portEdge10,portEdge11];
+
+figure
+
+scatter(portArray,portEdges);
+xlabel('Port Number')
+ylabel('Boundary Layer Thickness')
