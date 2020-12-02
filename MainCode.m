@@ -405,17 +405,17 @@ for i = 1:length(boundaryVelocity1)
      
 end
 
-portEdge1 = mean(port1Positions);
-portEdge2 = mean(port2Positions);
-portEdge3 = mean(port3Positions);
-portEdge4 = mean(port4Positions);
-portEdge5 = mean(port5Positions);
-portEdge6 = mean(port6Positions);
-portEdge7 = mean(port7Positions);
-portEdge8 = mean(port8Positions);
-portEdge9 = mean(port9Positions);
-portEdge10 = mean(port10Positions);
-portEdge11 = mean(port11Positions);
+portEdge1 = mean(port1Positions) / 1000;
+portEdge2 = mean(port2Positions) / 1000;
+portEdge3 = mean(port3Positions) / 1000;
+portEdge4 = mean(port4Positions) / 1000;
+portEdge5 = mean(port5Positions) / 1000;
+portEdge6 = mean(port6Positions) / 1000;
+portEdge7 = mean(port7Positions) / 1000;
+portEdge8 = mean(port8Positions) / 1000;
+portEdge9 = mean(port9Positions) / 1000;
+portEdge10 = mean(port10Positions) / 1000;
+portEdge11 = mean(port11Positions) / 1000;
 
 portArray = [1,2,3,4,5,6,7,8,9,10,11];
 portEdges = [portEdge1,portEdge2,portEdge3,portEdge4,portEdge5,portEdge6,portEdge7,portEdge8,portEdge9,portEdge10,portEdge11];
@@ -425,3 +425,95 @@ figure
 scatter(portArray,portEdges);
 xlabel('Port Number')
 ylabel('Boundary Layer Thickness')
+
+hold on
+
+portDistance1 = 9.05 * 0.0254; %All in meters
+portDistance2 = 10.03 * 0.0254; 
+portDistance3 = 11.01 * 0.0254;
+portDistance4 = 11.99 * 0.0254;
+portDistance5 = 12.97 * 0.0254;
+portDistance6 = 13.95 * 0.0254;
+portDistance7 = 14.93 * 0.0254;
+portDistance8 = 15.91 * 0.0254;
+portDistance9 = 16.89 * 0.0254;
+portDistance10 = 17.87 * 0.0254;
+portDistance11 = 18.85 * 0.0254;
+
+rho_inf = 1.05; %kg/m^3
+mu_inf = 0.000017894; %kg/m*s
+
+reynolds1 = rho_inf * freestreamVelocity1 * portDistance1 / mu_inf;
+reynolds2 = rho_inf * freestreamVelocity2 * portDistance2 / mu_inf;
+reynolds3 = rho_inf * freestreamVelocity3 * portDistance3 / mu_inf;
+reynolds4 = rho_inf * freestreamVelocity4 * portDistance4 / mu_inf;
+reynolds5 = rho_inf * freestreamVelocity5 * portDistance5 / mu_inf;
+reynolds6 = rho_inf * freestreamVelocity6 * portDistance6 / mu_inf;
+reynolds7 = rho_inf * freestreamVelocity7 * portDistance7 / mu_inf;
+reynolds8 = rho_inf * freestreamVelocity8 * portDistance8 / mu_inf;
+reynolds9 = rho_inf * freestreamVelocity9 * portDistance9 / mu_inf;
+reynolds10 = rho_inf * freestreamVelocity10 * portDistance10 / mu_inf;
+reynolds11 = rho_inf * freestreamVelocity11 * portDistance11 / mu_inf;
+
+laminarThickness1 = (5.2 * portDistance1) / sqrt(reynolds1);
+laminarThickness2 = (5.2 * portDistance2) / sqrt(reynolds2);
+laminarThickness3 = (5.2 * portDistance3) / sqrt(reynolds3);
+laminarThickness4 = (5.2 * portDistance4) / sqrt(reynolds4);
+laminarThickness5 = (5.2 * portDistance5) / sqrt(reynolds5);
+laminarThickness6 = (5.2 * portDistance6) / sqrt(reynolds6);
+laminarThickness7 = (5.2 * portDistance7) / sqrt(reynolds7);
+laminarThickness8 = (5.2 * portDistance8) / sqrt(reynolds8);
+laminarThickness9 = (5.2 * portDistance9) / sqrt(reynolds9);
+laminarThickness10 = (5.2 * portDistance10) / sqrt(reynolds10);
+laminarThickness11 = (5.2 * portDistance11) / sqrt(reynolds11);
+
+laminarThickness = [laminarThickness1,laminarThickness2,laminarThickness3,laminarThickness4,laminarThickness5,laminarThickness6,laminarThickness7,laminarThickness8,laminarThickness9,laminarThickness10,laminarThickness11];
+
+turbulentThickness1 = (0.37 * portDistance1) / reynolds1^0.2;
+turbulentThickness2 = (0.37 * portDistance2) / reynolds2^0.2;
+turbulentThickness3 = (0.37 * portDistance3) / reynolds3^0.2;
+turbulentThickness4 = (0.37 * portDistance4) / reynolds4^0.2;
+turbulentThickness5 = (0.37 * portDistance5) / reynolds5^0.2;
+turbulentThickness6 = (0.37 * portDistance6) / reynolds6^0.2;
+turbulentThickness7 = (0.37 * portDistance7) / reynolds7^0.2;
+turbulentThickness8 = (0.37 * portDistance8) / reynolds8^0.2;
+turbulentThickness9 = (0.37 * portDistance9) / reynolds9^0.2;
+turbulentThickness10 = (0.37 * portDistance10) / reynolds10^0.2;
+turbulentThickness11 = (0.37 * portDistance11) / reynolds11^0.2;
+
+turbulentThickness = [turbulentThickness1,turbulentThickness2,turbulentThickness3,turbulentThickness4,turbulentThickness5,turbulentThickness6,turbulentThickness7,turbulentThickness8,turbulentThickness9,turbulentThickness10,turbulentThickness11];
+
+scatter(portArray,laminarThickness);
+scatter(portArray,turbulentThickness);
+hold off
+legend('Experimental','Laminar','Turbulent')
+
+airfoilFiles = dir('2002 Aero Lab 2 - Group Data');
+
+airfoil_1_File = strcat(airfoilFiles(20).folder,'\',airfoilFiles(20).name);
+airfoil_2_File = strcat(airfoilFiles(21).folder,'\',airfoilFiles(21).name);
+airfoil_3_File = strcat(airfoilFiles(22).folder,'\',airfoilFiles(22).name);
+airfoil_4_File = strcat(airfoilFiles(23).folder,'\',airfoilFiles(23).name);
+airfoil_5_File = strcat(airfoilFiles(24).folder,'\',airfoilFiles(24).name);
+airfoil_6_File = strcat(airfoilFiles(25).folder,'\',airfoilFiles(25).name);
+airfoil_7_File = strcat(airfoilFiles(26).folder,'\',airfoilFiles(26).name);
+airfoil_8_File = strcat(airfoilFiles(27).folder,'\',airfoilFiles(27).name);
+
+airfoil_1_Data = load(airfoil_1_File);
+airfoil_2_Data = load(airfoil_2_File);
+airfoil_3_Data = load(airfoil_3_File);
+airfoil_4_Data = load(airfoil_4_File);
+airfoil_5_Data = load(airfoil_5_File);
+airfoil_6_Data = load(airfoil_6_File);
+airfoil_7_Data = load(airfoil_7_File);
+airfoil_8_Data = load(airfoil_8_File);
+
+airfoilData = zeros(1920,28);
+
+for i = 1:4
+       
+    airfoilData((i-1)*60+1:i*60,:) = airfoil_8_Data((i-1)*60+1:i*60,:);
+
+   
+end
+
