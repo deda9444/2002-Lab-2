@@ -525,3 +525,131 @@ end
 
 [~,sortIdx] = sort(airfoilData(:,23));
 airfoilData = airfoilData(sortIdx,:);
+
+port11Pressure = zeros(32,1); % Pressure at port 11
+
+
+port8Pos = [2.1*0.0254,0.38325 * 0.0254];
+port10Pos = [2.8*0.0254,0.21875*0.0254];
+port12Pos = [2.8*0.0254,0];
+port14Pos = [2.1*0.0254,0];
+
+AoAs = zeros(32,1);
+mean1Press = zeros(32,1);
+mean2Press = zeros(32,1);
+mean3Press = zeros(32,1);
+mean4Press = zeros(32,1);
+mean5Press = zeros(32,1);
+mean6Press = zeros(32,1);
+mean7Press = zeros(32,1);
+mean8Press = zeros(32,1);
+mean10Press = zeros(32,1);
+mean12Press = zeros(32,1);
+mean14Press = zeros(32,1);
+mean16Press = zeros(32,1);
+mean17Press = zeros(32,1);
+mean18Press = zeros(32,1);
+mean19Press = zeros(32,1);
+mean20Press = zeros(32,1);
+    
+for i = 1:32
+    mean1Press(i) = mean(airfoilData((i-1)*60+1:i*60,8));
+    mean2Press(i) = mean(airfoilData((i-1)*60+1:i*60,9));
+    mean3Press(i) = mean(airfoilData((i-1)*60+1:i*60,10));
+    mean4Press(i) = mean(airfoilData((i-1)*60+1:i*60,11));
+    mean5Press(i) = mean(airfoilData((i-1)*60+1:i*60,12));
+    mean6Press(i) = mean(airfoilData((i-1)*60+1:i*60,13));
+    mean7Press(i) = mean(airfoilData((i-1)*60+1:i*60,14));
+    mean8Press(i) = mean(airfoilData((i-1)*60+1:i*60,15));
+    mean10Press(i) = mean(airfoilData((i-1)*60+1:i*60,16));
+    mean12Press(i) = mean(airfoilData((i-1)*60+1:i*60,17));
+    mean14Press(i) = mean(airfoilData((i-1)*60+1:i*60,18));
+    mean16Press(i) = mean(airfoilData((i-1)*60+1:i*60,19));
+    mean17Press(i) = mean(airfoilData((i-1)*60+1:i*60,20));
+    mean18Press(i) = mean(airfoilData((i-1)*60+1:i*60,21));
+    mean19Press(i) = mean(airfoilData((i-1)*60+1:i*60,22));
+    mean20Press(i) = mean(airfoilData((i-1)*60+1:i*60,23));
+    
+    mBottom = (mean12Press(i)-mean14Press(i))/(port12Pos(1)-port14Pos(1));
+    mTop = (mean10Press(i)-mean8Press(i))/(port10Pos(1)-port8Pos(1));
+    
+    PresBottom = 0.7*0.0254*mBottom + mean12Press(i);
+    PresTop = 0.7*0.0254*mTop + mean10Press(i);
+    
+    AoAs(i) = airfoilData(i*60,23);
+    port11Pressure(i) = mean([PresBottom,PresTop]);
+end
+figure
+plot(AoAs,port11Pressure);
+
+pressureCoefficients = zeros(32,17);
+
+for i = 1:32
+    
+    pressureCoefficients(i,1) = mean1Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,2) = mean2Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,3) = mean3Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,4) = mean4Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,5) = mean5Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,6) = mean6Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,7) = mean7Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,8) = mean8Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,9) = mean10Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,10) = port11Pressure(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,11) = mean12Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,12) = mean14Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,13) = mean16Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,14) = mean17Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,15) = mean18Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,16) = mean19Press(i)/airfoilData(i*60,5);
+    pressureCoefficients(i,17) = mean20Press(i)/airfoilData(i*60,5);
+end
+
+chord = 3.5*0.0254;
+portPos = [0,0.175,0.35,0.7,1.05,1.4,1.75,2.1,2.8,3.5,2.8,2.1,1.4,1.05,0.7,0.35,0.175].*0.0254;
+portPosY = [0.14665,0.33075,0.4018,0.476,0.49,0.4774,0.4403,0.38325,0.21875,0,0,0,0,0,0.0014,0.0175,0.03885].*0.0254;
+normalizedChord = portPos./chord;
+figure
+hold on
+plot(normalizedChord,pressureCoefficients(1,:).*-1);
+plot(normalizedChord,pressureCoefficients(2,:).*-1);
+plot(normalizedChord,pressureCoefficients(3,:).*-1);
+plot(normalizedChord,pressureCoefficients(4,:).*-1);
+plot(normalizedChord,pressureCoefficients(5,:).*-1);
+plot(normalizedChord,pressureCoefficients(6,:).*-1);
+plot(normalizedChord,pressureCoefficients(7,:).*-1);
+plot(normalizedChord,pressureCoefficients(8,:).*-1);
+plot(normalizedChord,pressureCoefficients(9,:).*-1);
+plot(normalizedChord,pressureCoefficients(10,:).*-1);
+plot(normalizedChord,pressureCoefficients(11,:).*-1);
+plot(normalizedChord,pressureCoefficients(12,:).*-1);
+plot(normalizedChord,pressureCoefficients(13,:).*-1);
+plot(normalizedChord,pressureCoefficients(14,:).*-1);
+plot(normalizedChord,pressureCoefficients(15,:).*-1);
+plot(normalizedChord,pressureCoefficients(16,:).*-1);
+plot(normalizedChord,pressureCoefficients(17,:).*-1);
+hold off
+
+legend(["Port 1","Port 2","Port 3","Port 4","Port 5","Port 6","Port 7","Port 8","Port 10","Port 11","Port 12","Port 14","Port 16","Port 17","Port 18","Port 19","Port 20"]);
+
+NormalCoefficient = zeros(32,1);
+
+aCoefficient = zeros(32,1);
+for i = 1:32
+    for j = 1:16
+        NormalCoefficient(i) = NormalCoefficient(i) + 0.5*(pressureCoefficients(i,j) + pressureCoefficients(i,j+1))*(portPos(j+1)-portPos(j))/chord;
+        aCoefficient(i) = aCoefficient(i) + 0.5*(pressureCoefficients(i,j) + pressureCoefficients(i,j+1))*(portPosY(j+1)-portPosY(j))/chord;
+    end
+end
+NormalCoefficient = NormalCoefficient * -1;
+
+Cl = zeros(32,1);
+Cd = zeros(32,1);
+for i = 1:32
+    Cl(i) = NormalCoefficient(i)*cosd(AoAs(i))-aCoefficient(i)*sind(AoAs(i));
+    Cd(i) = NormalCoefficient(i)*sind(AoAs(i))+aCoefficient(i)*cosd(AoAs(i));
+end
+
+figure
+plot(AoAs, Cl, AoAs, Cd);
+legend(["Coefficient of Lift","Coefficient of Drag"],"Location","northwest");
