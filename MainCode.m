@@ -513,7 +513,15 @@ airfoilData = zeros(1920,28);
 for i = 1:4
        
     airfoilData((i-1)*60+1:i*60,:) = airfoil_8_Data((i-1)*60+1:i*60,:);
-
+    airfoilData((i-1)*60+241:i*60+240,:) = airfoil_7_Data((i-1)*60+1:i*60,:);
+    airfoilData(((i-1)*60+240*2+1):(i*60 +240*2),:) = airfoil_6_Data((i-1)*60+1:i*60,:);
+    airfoilData(((i-1)*60+240*3+1):(i*60 +240*3),:) = airfoil_5_Data((i-1)*60+1:i*60,:);
+    airfoilData(((i-1)*60+240*4+1):(i*60 +240*4),:) = airfoil_4_Data((i-1)*60+1:i*60,:);
+    airfoilData(((i-1)*60+240*5+1):(i*60 +240*5),:) = airfoil_3_Data((i-1)*60+1:i*60,:);
+    airfoilData(((i-1)*60+240*6+1):(i*60 +240*6),:) = airfoil_2_Data((i-1)*60+1:i*60,:);
+    airfoilData(((i-1)*60+240*7+1):(i*60 +240*7),:) = airfoil_1_Data((i-1)*60+1:i*60,:);
    
 end
 
+[~,sortIdx] = sort(airfoilData(:,23));
+airfoilData = airfoilData(sortIdx,:);
