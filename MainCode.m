@@ -334,17 +334,17 @@ counter9 = 1;
 counter10 = 1;
 counter11 = 1;
 
-port1Positions = 0;
-port2Positions = 0;
-port3Positions = 0;
-port4Positions = 0;
-port5Positions = 0;
-port6Positions = 0;
-port7Positions = 0;
-port8Positions = 0;
-port9Positions = 0;
-port10Positions = 0;
-port11Positions = 0;
+port1Positions = zeros(length(boundaryVelocity1),1);
+port2Positions = zeros(length(boundaryVelocity1),1);
+port3Positions = zeros(length(boundaryVelocity1),1);
+port4Positions = zeros(length(boundaryVelocity1),1);
+port5Positions = zeros(length(boundaryVelocity1),1);
+port6Positions = zeros(length(boundaryVelocity1),1);
+port7Positions = zeros(length(boundaryVelocity1),1);
+port8Positions = zeros(length(boundaryVelocity1),1);
+port9Positions = zeros(length(boundaryVelocity1),1);
+port10Positions = zeros(length(boundaryVelocity1),1);
+port11Positions = zeros(length(boundaryVelocity1),1);
 
 for i = 1:length(boundaryVelocity1)
      
