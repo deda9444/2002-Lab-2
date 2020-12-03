@@ -700,27 +700,26 @@ portPos = [0,0.175,0.35,0.7,1.05,1.4,1.75,2.1,2.8,3.5,2.8,2.1,1.4,1.05,0.7,0.35,
 portPosY = [0.14665,0.33075,0.4018,0.476,0.49,0.4774,0.4403,0.38325,0.21875,0,0,0,0,0,0.0014,0.0175,0.03885].*0.0254;
 normalizedChord = portPos./chord;
 figure
-% hold on
+hold on
 plot(normalizedChord,pressureCoefficients9ms(1,:),normalizedChord,pressureCoefficients17ms(1,:),normalizedChord,pressureCoefficients34ms(1,:));
+plot(normalizedChord,pressureCoefficients9ms(2,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(3,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(4,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(5,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(6,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(7,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(8,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(9,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(10,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(11,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(12,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(13,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(14,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(15,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(16,:).*-1);
+plot(normalizedChord,pressureCoefficients9ms(17,:).*-1);
+hold off
 set(gca, 'YDir','reverse');
-% plot(normalizedChord,pressureCoefficients9ms(2,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(3,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(4,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(5,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(6,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(7,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(8,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(9,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(10,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(11,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(12,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(13,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(14,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(15,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(16,:).*-1);
-% plot(normalizedChord,pressureCoefficients9ms(17,:).*-1);
-% hold off
-
 legend(["Port 1","Port 2","Port 3","Port 4","Port 5","Port 6","Port 7","Port 8","Port 10","Port 11","Port 12","Port 14","Port 16","Port 17","Port 18","Port 19","Port 20"]);
 
 NormalCoefficient = zeros(32,1);
