@@ -232,8 +232,8 @@ scatter(transducerGraphingData(:,1),transducerGraphingData(:,2))
 
 scatter(transducerGraphingData(:,1),transducerGraphingData(:,3))
 % title('Venturi Tube Airspeed via Pressure Transducer');
-% xlabel("Commanded Fan Voltage (V)");
-% ylabel("Airspeed (m/s)");
+xlabel("Commanded Fan Voltage (V)");
+ylabel("Airspeed (m/s)");
 
 legend('Pitot-Water','Venturi-Water','Pitot-Trans','Venturi-Trans');
 
