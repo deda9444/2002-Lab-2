@@ -1,3 +1,10 @@
+% 2002 Aero Lab Section 311 Group 11
+%   Lucas Allen, Devin Davis, and Samantha Smith
+%   12/3/2020
+%
+
+%%
+
 close all;
 clc;
 clear;
@@ -184,11 +191,14 @@ end
 
 voltagesManometer = (0.5:0.5:10);
 scatter(voltagesManometer,pitotWater)
-title('pitotWater');
+title('Pitot-Static Airspeed via Water Manometer');
+xlabel("Commanded Fan Voltage (V)");
+ylabel("Airspeed (m/s)");
 figure;
 scatter(voltagesManometer,venturiWater)
-title('venturiWater');
-
+title('Venturi Tube Airspeed via Water Manometer');
+xlabel("Commanded Fan Voltage (V)");
+ylabel("Airspeed (m/s)");
 %%
 
 transducerGraphingData = zeros(10000,3);
@@ -215,10 +225,14 @@ end
 
 figure
 scatter(transducerGraphingData(:,1),transducerGraphingData(:,2))
-title('pitotTransducer');
+title('Pitot-Static Airspeed via Pressure Transducer');
+xlabel("Commanded Fan Voltage (V)");
+ylabel("Airspeed (m/s)");
 figure;
 scatter(transducerGraphingData(:,1),transducerGraphingData(:,3))
-title('venturiTransducer');
+title('Venturi Tube Airspeed via Pressure Transducer');
+xlabel("Commanded Fan Voltage (V)");
+ylabel("Airspeed (m/s)");
 
 %% Part 6
 
@@ -290,8 +304,8 @@ end
 figure
 scatter(port_1_Data(:,6),boundaryVelocity1);
 title('Velocity at Port vs Probe Height');
-xlabel('Probe Height');
-ylabel('Velocity at Port Location');
+xlabel('Probe Height (mm)');
+ylabel('Velocity at Port Location (m/s)');
 
 hold on
 
@@ -424,7 +438,7 @@ figure
 
 scatter(portArray,portEdges);
 xlabel('Port Number')
-ylabel('Boundary Layer Thickness')
+ylabel('Boundary Layer Thickness (m)')
 
 hold on
 
@@ -487,6 +501,7 @@ scatter(portArray,laminarThickness);
 scatter(portArray,turbulentThickness);
 hold off
 legend('Experimental','Laminar','Turbulent')
+title("Boundary Layer Airspeeds for Laminar and Turbulent Flow");
 
 airfoilFiles = dir('2002 Aero Lab 2 - Group Data');
 
@@ -633,6 +648,10 @@ for i = 1:32
 end
 figure
 plot(AoAs,port11Pressure(:,1),AoAs,port11Pressure(:,2),AoAs,port11Pressure(:,3));
+legend(["9 m/s Airspeed","17 m/s Airspeed","34 m/s Airspeed"]);
+title("Port 11 Pressure Reading at different Angles of attack and airspeeds");
+xlabel("Angle of Attack (deg)");
+ylabel("Port Pressure Reading (Pa)");
 
 pressureCoefficients9ms = zeros(32,17);
 pressureCoefficients17ms = zeros(32,17);
@@ -721,6 +740,10 @@ plot(normalizedChord,pressureCoefficients9ms(17,:));
 hold off
 set(gca, 'YDir','reverse');
 legend(["Port 1","Port 2","Port 3","Port 4","Port 5","Port 6","Port 7","Port 8","Port 10","Port 11","Port 12","Port 14","Port 16","Port 17","Port 18","Port 19","Port 20"]);
+title("Pressure Coefficients at points along Normalized Chord (9 m/s airspeed)");
+xlabel("Normalized Chord Position");
+ylabel("Pressure Coefficient");
+
 
 NormalCoefficient = zeros(32,1);
 
@@ -778,4 +801,7 @@ end
 
 figure
 plot(AoAs, Cl, AoAs, Cl2, AoAs, Cl3, AoAs, Cd, AoAs, Cd2, AoAs, Cd3);
-legend(["Coefficient of Lift 7m/s","Coefficient of Lift 17m/s","Coefficient of Lift 34m/s","Coefficient of Drag 7m/s","Coefficient of Drag 17m/s","Coefficient of Drag 34m/s"],"Location","northwest");
+title("Coefficients of Lift and Drag at different Angles of Attack and Airspeeds");
+xlabel("Angle of attack (Degrees)");
+ylabel("Coefficient of Lift and Drag");
+legend(["Lift 9m/s","Lift 17m/s","Lift 34m/s","Drag 9m/s","Drag 17m/s","Drag 34m/s"],"Location","northwest");
