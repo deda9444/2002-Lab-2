@@ -192,13 +192,13 @@ end
 
 voltagesManometer = (0.5:0.5:10);
 scatter(voltagesManometer,pitotWater)
-title('Pitot-Static Airspeed via Water Manometer');
+%title('Pitot-Static Airspeed via Water Manometer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
 %figure
 hold on
 scatter(voltagesManometer,venturiWater)
-title('Venturi Tube Airspeed via Water Manometer');
+%title('Venturi Tube Airspeed via Water Manometer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
 %%
@@ -236,7 +236,7 @@ ylabel("Airspeed (m/s)");
 %hold off
 %figure
 scatter(transducerGraphingData(:,1),transducerGraphingData(:,3))
-title('Venturi Tube Airspeed via Pressure Transducer');
+%title('Venturi Tube Airspeed via Pressure Transducer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
 
