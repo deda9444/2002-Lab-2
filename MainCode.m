@@ -347,17 +347,17 @@ scatter(port_11_Data(:,6),boundaryVelocity11);
 hold off
 
 %--------------------------------------------------------------------------
-freestreamVelocity1 = 0.95 * mean(boundaryVelocity1(5501:end));
-freestreamVelocity2 = 0.95 * mean(boundaryVelocity2(5501:end));
-freestreamVelocity3 = 0.95 * mean(boundaryVelocity3(5501:end));
-freestreamVelocity4 = 0.95 * mean(boundaryVelocity4(5501:end));
-freestreamVelocity5 = 0.95 * mean(boundaryVelocity5(5501:end));
-freestreamVelocity6 = 0.95 * mean(boundaryVelocity6(5501:end));
-freestreamVelocity7 = 0.95 * mean(boundaryVelocity7(5501:end));
-freestreamVelocity8 = 0.95 * mean(boundaryVelocity8(5501:end));
-freestreamVelocity9 = 0.95 * mean(boundaryVelocity9(5501:end));
-freestreamVelocity10 = 0.95 * mean(boundaryVelocity10(5501:end));
-freestreamVelocity11 = 0.95 * mean(boundaryVelocity11(5501:end));
+freestreamVelocity1 = mean(boundaryVelocity1(5501:end));
+freestreamVelocity2 = mean(boundaryVelocity2(5501:end));
+freestreamVelocity3 = mean(boundaryVelocity3(5501:end));
+freestreamVelocity4 = mean(boundaryVelocity4(5501:end));
+freestreamVelocity5 = mean(boundaryVelocity5(5501:end));
+freestreamVelocity6 = mean(boundaryVelocity6(5501:end));
+freestreamVelocity7 = mean(boundaryVelocity7(5501:end));
+freestreamVelocity8 = mean(boundaryVelocity8(5501:end));
+freestreamVelocity9 = mean(boundaryVelocity9(5501:end));
+freestreamVelocity10 = mean(boundaryVelocity10(5501:end));
+freestreamVelocity11 = mean(boundaryVelocity11(5501:end));
 %--------------------------------------------------------------------------
 
 counter1 = 1;
@@ -386,57 +386,57 @@ port11Positions = 0;
 
 for i = 1:length(boundaryVelocity1)
      
-    if(abs(boundaryVelocity1(i) - freestreamVelocity1) <= 0.1)        
+    if(abs(boundaryVelocity1(i) - 0.95 * freestreamVelocity1) <= 0.1)        
          port1Positions(counter1) = port_1_Data(i,6);  
          counter1 = counter1 + 1;
     end
     
-    if(abs(boundaryVelocity2(i) - freestreamVelocity2) <= 0.1)        
+    if(abs(boundaryVelocity2(i) - 0.95 * freestreamVelocity2) <= 0.1)        
          port2Positions(counter2) = port_2_Data(i,6);
          counter2 = counter2 + 1;
     end
     
-    if(abs(boundaryVelocity3(i) - freestreamVelocity3) <= 0.1)        
+    if(abs(boundaryVelocity3(i) - 0.95 * freestreamVelocity3) <= 0.1)        
          port3Positions(counter3) = port_3_Data(i,6);
          counter3 = counter3 + 1;
     end
     
-    if(abs(boundaryVelocity4(i) - freestreamVelocity4) <= 0.1)        
+    if(abs(boundaryVelocity4(i) - 0.95 * freestreamVelocity4) <= 0.1)        
          port4Positions(counter4) = port_4_Data(i,6);
          counter4 = counter4 + 1;
     end
     
-    if(abs(boundaryVelocity5(i) - freestreamVelocity5) <= 0.1)        
+    if(abs(boundaryVelocity5(i) - 0.95 * freestreamVelocity5) <= 0.1)        
          port5Positions(counter5) = port_5_Data(i,6);
          counter5 = counter5 + 1;
     end
     
-    if(abs(boundaryVelocity6(i) - freestreamVelocity6) <= 0.1)        
+    if(abs(boundaryVelocity6(i) - 0.95 * freestreamVelocity6) <= 0.1)        
          port6Positions(counter6) = port_6_Data(i,6);
          counter6 = counter6 + 1;
     end
     
-    if(abs(boundaryVelocity7(i) - freestreamVelocity7) <= 0.1)        
+    if(abs(boundaryVelocity7(i) - 0.95 * freestreamVelocity7) <= 0.1)        
          port7Positions(counter7) = port_7_Data(i,6);
          counter7 = counter7 + 1;
     end
     
-    if(abs(boundaryVelocity8(i) - freestreamVelocity8) <= 0.1)        
+    if(abs(boundaryVelocity8(i) - 0.95 * freestreamVelocity8) <= 0.1)        
          port8Positions(counter8) = port_8_Data(i,6);
          counter8 = counter8 + 1;
     end
     
-    if(abs(boundaryVelocity9(i) - freestreamVelocity9) <= 0.1)        
+    if(abs(boundaryVelocity9(i) - 0.95 * freestreamVelocity9) <= 0.1)        
          port9Positions(counter9) = port_9_Data(i,6);
          counter9 = counter9 + 1;
     end
     
-    if(abs(boundaryVelocity10(i) - freestreamVelocity10) <= 0.1)        
+    if(abs(boundaryVelocity10(i) - 0.95 * freestreamVelocity10) <= 0.1)        
          port10Positions(counter10) = port_10_Data(i,6); 
          counter10 = counter10 + 1;
     end
     
-    if(abs(boundaryVelocity11(i) - freestreamVelocity11) <= 0.1)        
+    if(abs(boundaryVelocity11(i) - 0.95 * freestreamVelocity11) <= 0.1)        
          port11Positions(counter11) = port_11_Data(i,6);
          counter11 = counter11 + 1;
     end
