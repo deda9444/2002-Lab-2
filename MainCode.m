@@ -57,10 +57,10 @@ for i=1:500
         pitotTransducer(i,s303_5_Data((i+j*500),7)*2) = pitotVelocity(s303_5_Data((i+j*500),3),s303_5_Data((i+j*500),2),s303_5_Data((i+j*500),1));
         pitotTransducer(i,s303_3_Data((i+j*500),7)*2) = pitotVelocity(s303_3_Data((i+j*500),3),s303_3_Data((i+j*500),2),s303_3_Data((i+j*500),1));
         
-        venturiTransducer(i,s303_8_Data((i+j*500),7)*2) = pitotVelocity(s303_8_Data((i+j*500),3),s303_8_Data((i+j*500),2),s303_8_Data((i+j*500),1));
-        venturiTransducer(i,s303_2_Data((i+j*500),7)*2) = pitotVelocity(s303_2_Data((i+j*500),3),s303_2_Data((i+j*500),2),s303_2_Data((i+j*500),1));
-        venturiTransducer(i,s303_6_Data((i+j*500),7)*2) = pitotVelocity(s303_6_Data((i+j*500),3),s303_6_Data((i+j*500),2),s303_6_Data((i+j*500),1));
-        venturiTransducer(i,s303_4_Data((i+j*500),7)*2) = pitotVelocity(s303_4_Data((i+j*500),3),s303_4_Data((i+j*500),2),s303_4_Data((i+j*500),1));
+        venturiTransducer(i,s303_8_Data((i+j*500),7)*2) = venturiVelocity(s303_8_Data((i+j*500),3),s303_8_Data((i+j*500),2),s303_8_Data((i+j*500),1));
+        venturiTransducer(i,s303_2_Data((i+j*500),7)*2) = venturiVelocity(s303_2_Data((i+j*500),3),s303_2_Data((i+j*500),2),s303_2_Data((i+j*500),1));
+        venturiTransducer(i,s303_6_Data((i+j*500),7)*2) = venturiVelocity(s303_6_Data((i+j*500),3),s303_6_Data((i+j*500),2),s303_6_Data((i+j*500),1));
+        venturiTransducer(i,s303_4_Data((i+j*500),7)*2) = venturiVelocity(s303_4_Data((i+j*500),3),s303_4_Data((i+j*500),2),s303_4_Data((i+j*500),1));
         
     end
     
@@ -83,15 +83,15 @@ iterate = 1;
     
 for j=5:2:13
     
-    waterPressureVenturi(1,iterate) = rho_water * g * water_Data{22,j}; %0.5 Volt start
-    waterPressureVenturi(1,iterate+1) = rho_water * g * water_Data{6,j}; %1 Volt start
-    waterPressureVenturi(1,iterate+2) = rho_water * g * water_Data{25,j}; %1.5 Volt start
-    waterPressureVenturi(1,iterate+3) = rho_water * g * water_Data{3,j}; %2 Volt start
+    waterPressureVenturi(1,iterate) = rho_water * g * water_Data{22,j}*0.0254; %0.5 Volt start
+    waterPressureVenturi(1,iterate+1) = rho_water * g * water_Data{6,j}*0.0254; %1 Volt start
+    waterPressureVenturi(1,iterate+2) = rho_water * g * water_Data{25,j}*0.0254; %1.5 Volt start
+    waterPressureVenturi(1,iterate+3) = rho_water * g * water_Data{3,j}*0.0254; %2 Volt start
     
-    waterPressurePitot(1,iterate) = rho_water * g * water_Data{26,j}; %0.5 Volt start
-    waterPressurePitot(1,iterate+1) = rho_water * g * water_Data{1,j}; %1 Volt start
-    waterPressurePitot(1,iterate+2) = rho_water * g * water_Data{16,j}; %1.5 Volt start
-    waterPressurePitot(1,iterate+3) = rho_water * g * water_Data{4,j}; %2 Volt start
+    waterPressurePitot(1,iterate) = rho_water * g * water_Data{26,j}*0.0254; %0.5 Volt start
+    waterPressurePitot(1,iterate+1) = rho_water * g * water_Data{1,j}*0.0254; %1 Volt start
+    waterPressurePitot(1,iterate+2) = rho_water * g * water_Data{16,j}*0.0254; %1.5 Volt start
+    waterPressurePitot(1,iterate+3) = rho_water * g * water_Data{4,j}*0.0254; %2 Volt start
     
     iterate = iterate + 4;
     
@@ -107,6 +107,7 @@ for i = 1:20
     venturiWater(i) = venturiVelocity(waterPressureVenturi(i),atmosphericTemperature,atmosphericPressure);
     
 end
+
 
 %% Errororor
 
@@ -191,16 +192,14 @@ end
 
 voltagesManometer = (0.5:0.5:10);
 scatter(voltagesManometer,pitotWater)
-% title('Pitot-Static Airspeed via Water Manometer');
-% xlabel("Commanded Fan Voltage (V)");
-% ylabel("Airspeed (m/s)");
-
-hold on;
-
+title('Pitot-Static Airspeed via Water Manometer');
+xlabel("Commanded Fan Voltage (V)");
+ylabel("Airspeed (m/s)");
+figure
 scatter(voltagesManometer,venturiWater)
-% title('Venturi Tube Airspeed via Water Manometer');
-% xlabel("Commanded Fan Voltage (V)");
-% ylabel("Airspeed (m/s)");
+title('Venturi Tube Airspeed via Water Manometer');
+xlabel("Commanded Fan Voltage (V)");
+ylabel("Airspeed (m/s)");
 %%
 
 transducerGraphingData = zeros(10000,3);
@@ -222,22 +221,26 @@ for i = 1:20
     end
 
 end
-
+lobf = polyfit(transducerGraphingData(:,1),transducerGraphingData(:,2),1);
+line = polyval(lobf,0:0.5:10);
 %% Graphing Pressure Transducer Data
-
+figure
+hold on
 scatter(transducerGraphingData(:,1),transducerGraphingData(:,2))
-% title('Pitot-Static Airspeed via Pressure Transducer');
-% xlabel("Commanded Fan Voltage (V)");
-% ylabel("Airspeed (m/s)");
+plot(0:0.5:10,line);
+title('Pitot-Static Airspeed via Pressure Transducer');
+xlabel("Commanded Fan Voltage (V)");
+ylabel("Airspeed (m/s)");
 
+hold off
+figure
 scatter(transducerGraphingData(:,1),transducerGraphingData(:,3))
-% title('Venturi Tube Airspeed via Pressure Transducer');
+title('Venturi Tube Airspeed via Pressure Transducer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
 
 legend('Pitot-Water','Venturi-Water','Pitot-Trans','Venturi-Trans');
 
-hold off
 
 %% Part 6
 
