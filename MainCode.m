@@ -36,7 +36,7 @@ s303_8_Data = load(s303_8_File); %Venturi to Transducer
 water_Data = readtable(water_Data_File);
 
 areaRatio = 1 / 9.5;
-R = 287; %J/molK
+R = 287; %J/kg*K
 rho_water = 997; %kg/m^3
 g = 9.81; %m/s^2
 
