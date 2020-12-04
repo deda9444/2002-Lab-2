@@ -192,20 +192,10 @@ end
 figure
 voltagesManometer = (0.5:0.5:10);
 scatter(voltagesManometer,pitotWater)
-title('Pitot-Static Airspeed via Water Manometer');
-xlabel("Commanded Fan Voltage (V)");
-ylabel("Airspeed (m/s)");
 hold on;
-errorbar(voltagesManometer,pitotWater,deltaAirspeedPitotManometer)
-hold off;
-figure
+errorbar(voltagesManometer,pitotWater,deltaAirspeedPitotManometer,'HandleVisibility','off')
 scatter(voltagesManometer,venturiWater)
-title('Venturi Tube Airspeed via Water Manometer');
-xlabel("Commanded Fan Voltage (V)");
-ylabel("Airspeed (m/s)");
-hold on;
-errorbar(voltagesManometer,venturiWater,deltaAirspeedVenturiManometer)
-hold off;
+errorbar(voltagesManometer,venturiWater,deltaAirspeedVenturiManometer,'HandleVisibility','off')
 %%
 
 transducerGraphingData = zeros(10000,3);
@@ -243,37 +233,18 @@ for i = 1:20
     
 end
 
-figure;
+%% Graphing Pressure Transducer Data
+
 scatter(avgTransducerGraphingData(:,1),avgTransducerGraphingData(:,2));
-hold on
 scatter(avgTransducerGraphingData(:,1),avgTransducerGraphingData(:,3));
-errorbar(avgTransducerGraphingData(:,1),avgTransducerGraphingData(:,2),avgDeltaAirspeedPitot)
-errorbar(avgTransducerGraphingData(:,1),avgTransducerGraphingData(:,3),avgDeltaAirspeedVenturi)
+errorbar(avgTransducerGraphingData(:,1),avgTransducerGraphingData(:,2),avgDeltaAirspeedPitot,'HandleVisibility','off')
+errorbar(avgTransducerGraphingData(:,1),avgTransducerGraphingData(:,3),avgDeltaAirspeedVenturi,'HandleVisibility','off')
 
 title('Pressure Transducer Airspeeds');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
-legend("Pitot-Static","Venturi","Location","southeast");
+legend("Pitot-Mano","Venturi-Mano","Pitot-Trans","Venturi-Trans","Location","southeast");
 hold off;
-%% Graphing Pressure Transducer Data
-figure
-hold on
-scatter(transducerGraphingData(:,1),transducerGraphingData(:,2))
-plot(0:0.5:10,line);
-title('Pitot-Static Airspeed via Pressure Transducer');
-xlabel("Commanded Fan Voltage (V)");
-ylabel("Airspeed (m/s)");
-
-hold off
-figure
-scatter(transducerGraphingData(:,1),transducerGraphingData(:,3))
-title('Venturi Tube Airspeed via Pressure Transducer');
-xlabel("Commanded Fan Voltage (V)");
-ylabel("Airspeed (m/s)");
-legend('Pitot-Water','Venturi-Water','Pitot-Trans','Venturi-Trans');
-
-hold off
-
 
 %% Part 6
 
