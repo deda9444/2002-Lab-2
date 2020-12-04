@@ -762,25 +762,11 @@ normalizedChord = portPos./chord;
 figure
 hold on
 plot(normalizedChord,pressureCoefficients9ms(1,:));
-plot(normalizedChord,pressureCoefficients9ms(2,:));
-plot(normalizedChord,pressureCoefficients9ms(3,:));
-plot(normalizedChord,pressureCoefficients9ms(4,:));
-plot(normalizedChord,pressureCoefficients9ms(5,:));
-plot(normalizedChord,pressureCoefficients9ms(6,:));
-plot(normalizedChord,pressureCoefficients9ms(7,:));
-plot(normalizedChord,pressureCoefficients9ms(8,:));
-plot(normalizedChord,pressureCoefficients9ms(9,:));
-plot(normalizedChord,pressureCoefficients9ms(10,:));
-plot(normalizedChord,pressureCoefficients9ms(11,:));
-plot(normalizedChord,pressureCoefficients9ms(12,:));
-plot(normalizedChord,pressureCoefficients9ms(13,:));
-plot(normalizedChord,pressureCoefficients9ms(14,:));
-plot(normalizedChord,pressureCoefficients9ms(15,:));
 plot(normalizedChord,pressureCoefficients9ms(16,:));
-plot(normalizedChord,pressureCoefficients9ms(17,:));
+plot(normalizedChord,pressureCoefficients9ms(30,:));
 hold off
 set(gca, 'YDir','reverse');
-legend(["Port 1","Port 2","Port 3","Port 4","Port 5","Port 6","Port 7","Port 8","Port 10","Port 11","Port 12","Port 14","Port 16","Port 17","Port 18","Port 19","Port 20"]);
+legend(["-15 deg AoA","0 deg AoA","14 deg AoA"]);
 title("Pressure Coefficients at points along Normalized Chord (9 m/s airspeed)");
 xlabel("Normalized Chord Position");
 ylabel("Pressure Coefficient");
