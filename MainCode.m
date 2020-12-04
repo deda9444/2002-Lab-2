@@ -229,6 +229,32 @@ for i = 1:20
 end
 lobf = polyfit(transducerGraphingData(:,1),transducerGraphingData(:,2),1);
 line = polyval(lobf,0:0.5:10);
+%% AHHHHHHHHHHHHHHHHH
+avgTransducerGraphingData = zeros(20,3);
+avgDeltaAirspeedPitot = zeros(20,1);
+avgDeltaAirspeedVenturi = zeros(20,1);
+for i = 1:20
+    avgTransducerGraphingData(i,1) = mean(transducerGraphingData((i-1)*500+1:i*500,1));
+    avgTransducerGraphingData(i,2) = mean(transducerGraphingData((i-1)*500+1:i*500,2));
+    avgTransducerGraphingData(i,3) = mean(transducerGraphingData((i-1)*500+1:i*500,3));
+    
+    avgDeltaAirspeedPitot(i,1) = mean(deltaAirspeedPitotTransducer(:,i));
+    avgDeltaAirspeedVenturi(i,1) = mean(deltaAirspeedVenturiTransducer(:,i));
+    
+end
+
+figure;
+scatter(avgTransducerGraphingData(:,1),avgTransducerGraphingData(:,2));
+hold on
+scatter(avgTransducerGraphingData(:,1),avgTransducerGraphingData(:,3));
+errorbar(avgTransducerGraphingData(:,1),avgTransducerGraphingData(:,2),avgDeltaAirspeedPitot)
+errorbar(avgTransducerGraphingData(:,1),avgTransducerGraphingData(:,3),avgDeltaAirspeedVenturi)
+
+title('Pressure Transducer Airspeeds');
+xlabel("Commanded Fan Voltage (V)");
+ylabel("Airspeed (m/s)");
+legend("Pitot-Static","Venturi","Location","southeast");
+hold off;
 %% Graphing Pressure Transducer Data
 figure
 hold on
@@ -237,11 +263,6 @@ plot(0:0.5:10,line);
 title('Pitot-Static Airspeed via Pressure Transducer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
-for i = 1:20
-    hold on
-    errorbar(transducerGraphingData((i-1)*500+1:i*500,1),transducerGraphingData((i-1)*500+1:i*500,2),deltaAirspeedPitotTransducer(:,i))
-end
-hold off;
 
 hold off
 figure
@@ -249,10 +270,6 @@ scatter(transducerGraphingData(:,1),transducerGraphingData(:,3))
 title('Venturi Tube Airspeed via Pressure Transducer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
-for i = 1:20
-    hold on
-    errorbar(transducerGraphingData((i-1)*500+1:i*500,1),transducerGraphingData((i-1)*500+1:i*500,3),deltaAirspeedVenturiTransducer(:,i))
-end
 legend('Pitot-Water','Venturi-Water','Pitot-Trans','Venturi-Trans');
 
 hold off
