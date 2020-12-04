@@ -195,11 +195,17 @@ scatter(voltagesManometer,pitotWater)
 title('Pitot-Static Airspeed via Water Manometer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
+hold on;
+errorbar(voltagesManometer,pitotWater,deltaAirspeedPitotManometer)
+hold off;
 figure
 scatter(voltagesManometer,venturiWater)
 title('Venturi Tube Airspeed via Water Manometer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
+hold on;
+errorbar(voltagesManometer,venturiWater,deltaAirspeedVenturiManometer)
+hold off;
 %%
 
 transducerGraphingData = zeros(10000,3);
@@ -231,6 +237,11 @@ plot(0:0.5:10,line);
 title('Pitot-Static Airspeed via Pressure Transducer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
+for i = 1:20
+    hold on
+    errorbar(transducerGraphingData((i-1)*500+1:i*500,1),transducerGraphingData((i-1)*500+1:i*500,2),deltaAirspeedPitotTransducer(:,i))
+end
+hold off;
 
 hold off
 figure
@@ -238,7 +249,10 @@ scatter(transducerGraphingData(:,1),transducerGraphingData(:,3))
 title('Venturi Tube Airspeed via Pressure Transducer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
-
+for i = 1:20
+    hold on
+    errorbar(transducerGraphingData((i-1)*500+1:i*500,1),transducerGraphingData((i-1)*500+1:i*500,3),deltaAirspeedVenturiTransducer(:,i))
+end
 legend('Pitot-Water','Venturi-Water','Pitot-Trans','Venturi-Trans');
 
 hold off
@@ -448,7 +462,7 @@ figure
 
 scatter(portArray,portEdges);
 xlabel('Port Number')
-ylabel('Boundary Layer Thickness (mm)')
+ylabel('Boundary Layer Thickness (m)')
 
 hold on
 
