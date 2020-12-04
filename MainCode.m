@@ -189,16 +189,15 @@ for i = 1:20
 end
 
 %%
-
+figure
 voltagesManometer = (0.5:0.5:10);
 scatter(voltagesManometer,pitotWater)
-%title('Pitot-Static Airspeed via Water Manometer');
+title('Pitot-Static Airspeed via Water Manometer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
-%figure
-hold on
+figure
 scatter(voltagesManometer,venturiWater)
-%title('Venturi Tube Airspeed via Water Manometer');
+title('Venturi Tube Airspeed via Water Manometer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
 %%
@@ -225,18 +224,18 @@ end
 lobf = polyfit(transducerGraphingData(:,1),transducerGraphingData(:,2),1);
 line = polyval(lobf,0:0.5:10);
 %% Graphing Pressure Transducer Data
-%figure
-%hold on
+figure
+hold on
 scatter(transducerGraphingData(:,1),transducerGraphingData(:,2))
-%plot(0:0.5:10,line);
-%title('Pitot-Static Airspeed via Pressure Transducer');
+plot(0:0.5:10,line);
+title('Pitot-Static Airspeed via Pressure Transducer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
 
-%hold off
-%figure
+hold off
+figure
 scatter(transducerGraphingData(:,1),transducerGraphingData(:,3))
-%title('Venturi Tube Airspeed via Pressure Transducer');
+title('Venturi Tube Airspeed via Pressure Transducer');
 xlabel("Commanded Fan Voltage (V)");
 ylabel("Airspeed (m/s)");
 
@@ -449,7 +448,7 @@ figure
 
 scatter(portArray,portEdges);
 xlabel('Port Number')
-ylabel('Boundary Layer Thickness (m)')
+ylabel('Boundary Layer Thickness (mm)')
 
 hold on
 
@@ -465,7 +464,7 @@ portDistance9 = 16.89 * 0.0254;
 portDistance10 = 17.87 * 0.0254;
 portDistance11 = 18.85 * 0.0254;
 
-rho_inf = 1.05; %kg/m^3
+rho_inf = 0.85; %kg/m^3
 mu_inf = 0.000017894; %kg/m*s
 
 reynolds1 = rho_inf * freestreamVelocity1 * portDistance1 / mu_inf;
